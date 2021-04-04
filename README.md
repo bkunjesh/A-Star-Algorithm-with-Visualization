@@ -6,3 +6,5 @@
 
 • Priority Queue Data structure, A* algorithm and Pygame Library are used in this project.
 
+
+![54c7mv](https://user-images.githubusercontent.com/42324624/113508954-985c6580-9570-11eb-841d-7526c51a47d1.gif)
