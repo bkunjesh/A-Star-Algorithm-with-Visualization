@@ -69,7 +69,7 @@ void tracePath(int grid[][col], Node nodes[][col], pair<int, int> src, pair<int,
 void aStarSearch(int grid[][col], pair<int, int> src, pair<int, int> dest)
 {
     Node nodes[row][col];
-    int closedList[row][col];
+    int closedList[row][col];   //visited array
     memset(closedList, 0, sizeof(closedList));
     set<pair<int, pair<int, int>>> openList; // (f_score,(x,y))
 
@@ -86,6 +86,11 @@ void aStarSearch(int grid[][col], pair<int, int> src, pair<int, int> dest)
     if (grid[src.F][src.S] == 1)
     {
         cout << "src is blocked" << endl;
+        return;
+    }
+    if (grid[dest.F][dest.S] == 1)
+    {
+        cout << "dest is blocked" << endl;
         return;
     }
     if (is_destination(src.F, src.S, dest))
@@ -107,7 +112,7 @@ void aStarSearch(int grid[][col], pair<int, int> src, pair<int, int> dest)
         int cur_f = cur.F;
         int cur_x = cur.S.F;
         int cur_y = cur.S.S;
-        closedList[cur_x][cur_y] = 1;
+        closedList[cur_x][cur_y] = 1; //visited 
 
         int dx[4] = {1, -1, 0, 0};
         int dy[4] = {0, 0, 1, -1};
@@ -130,7 +135,7 @@ void aStarSearch(int grid[][col], pair<int, int> src, pair<int, int> dest)
                 return;
             }
 
-            //is it closed or blocked?
+            //is it closed/visited or blocked?
             if (closedList[new_x][new_y] == 0 && grid[new_x][new_y] == 0)
             {
                 int new_g = nodes[cur_x][cur_y].g + 1;
@@ -153,15 +158,17 @@ void aStarSearch(int grid[][col], pair<int, int> src, pair<int, int> dest)
 
 int main()
 {
-    int grid[row][col] = {{1, 0, 1, 1, 1, 1, 0, 1, 1, 1},
-                          {1, 1, 1, 0, 1, 1, 1, 0, 1, 1},
-                          {1, 1, 1, 0, 1, 1, 0, 1, 0, 1},
-                          {0, 0, 1, 0, 1, 0, 0, 0, 0, 1},
-                          {1, 1, 1, 0, 1, 1, 1, 0, 1, 0},
-                          {1, 0, 1, 1, 1, 1, 0, 1, 0, 0},
-                          {1, 0, 0, 0, 0, 1, 0, 0, 0, 1},
-                          {1, 0, 1, 1, 1, 1, 0, 1, 1, 1},
-                          {1, 1, 1, 0, 0, 0, 1, 0, 0, 1}};
+    int grid[row][col] = {
+                        {1, 0, 1, 1, 1, 1, 0, 1, 1, 1},
+                        {1, 1, 1, 0, 1, 1, 1, 0, 1, 1},
+                        {1, 1, 1, 0, 1, 1, 0, 1, 0, 1},
+                        {0, 0, 1, 0, 1, 0, 0, 0, 0, 1},
+                        {1, 1, 1, 0, 1, 1, 1, 0, 1, 0},
+                        {1, 0, 1, 1, 1, 1, 0, 1, 0, 0},
+                        {1, 0, 0, 0, 0, 1, 0, 0, 0, 1},
+                        {1, 0, 1, 1, 1, 1, 0, 1, 1, 1},
+                        {1, 1, 1, 0, 0, 0, 1, 0, 0, 1}
+                        };
 
     pair<int, int> src = make_pair(8, 3);
     pair<int, int> dest = make_pair(9, 9);
